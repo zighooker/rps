@@ -33,12 +33,12 @@ function getPlayerChoice() {
 }
 
 // playRound compares computerSelection and playerSelection to determine winner
-function playRound(playerSelection, computerSelection) {
+function playRound() {
+    getComputerChoice();
+    getPlayerChoice();
     if (computerSelection === playerSelection) {
         console.log("Draw!");
-        // getComputerChoice();
-        // getPlayerChoice();
-        // playRound(playerSelection, computerSelection);
+        playRound();
     } else if (playerSelection === 'rock') {
         if (computerSelection === 'scissor') {
             playerWin();            
@@ -60,17 +60,22 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+// functions to increment and display current score
 function playerWin() {
-    console.log("Player wins");
     playerScore++;
+    console.log("Computer picked " + computerSelection + ", Player wins! " + score());
 }
 
 function computerWin() {
-    console.log("Computer wins");
     computerScore++;
+    console.log("Computer picked " + computerSelection + ", Computer wins! " + score());
 }
 
-// game runs a sequence of rounds and keeps score
+function score() {
+    return ("Score is " + playerScore + " to " + computerScore);
+}
+
+// game runs a sequence of 5 rounds
 function game() {
     // if (computerScore < 5 && playerScore < 5) {
     //     getComputerChoice();
@@ -83,6 +88,5 @@ function game() {
     // }
 }
 
-getComputerChoice();
-getPlayerChoice();
-playRound(playerSelection, computerSelection);
+
+playRound();
