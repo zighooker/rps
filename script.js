@@ -18,7 +18,7 @@ function getComputerChoice() {
             computerSelection = 'paper';
             break;
     }
-    console.log("getComputerChoice " + computerSelection);
+    // console.log("getComputerChoice " + computerSelection);
 }
 
 // getPlayerChoice prompts user, equalizes output and checks for validity
@@ -63,30 +63,28 @@ function playRound() {
 // functions to increment and display current score
 function playerWin() {
     playerScore++;
-    console.log("Computer picked " + computerSelection + ", Player wins! " + score());
+    console.log("Computer picked " + computerSelection + ", Player wins! Current " + score());
 }
 
 function computerWin() {
     computerScore++;
-    console.log("Computer picked " + computerSelection + ", Computer wins! " + score());
+    console.log("Computer picked " + computerSelection + ", Computer wins! Current " + score());
 }
 
 function score() {
-    return ("Score is " + playerScore + " to " + computerScore);
+    return ("score is " + playerScore + " to " + computerScore + ".");
 }
 
 // game runs a sequence of 5 rounds
 function game() {
-    // if (computerScore < 5 && playerScore < 5) {
-    //     getComputerChoice();
-    //     getPlayerChoice();
-    //     playRound(playerSelection, computerSelection);
-    // } else if (computerScore === 5) {
-    //     console.log("Computer wins the game!");
-    // } else {
-    //     console.log("Player wins the game!");
-    // }
+    for (let i = 0; i < 5; i++) {
+        playRound();
+    }
+    if (playerScore > computerScore) {
+        console.log("You win! Final " + score());
+    } else {
+        console.log("Sorry, you lose. Final " + score());
+    }
 }
 
-
-playRound();
+game();
