@@ -1,0 +1,100 @@
+* {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    background-color: rgb(211, 211, 211);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pageHeader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    gap: 30px;
+}
+
+#pageTitle {
+    font-size: 72px;
+}
+
+.rpsButtons {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 50px;
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+    background-color: rgb(144, 144, 144);
+}
+
+.rpsButtons > * {
+    font-size: 120px;
+    background-color: transparent;
+    border: none;
+}
+
+.selectButton:hover {
+    font-size: 130px;
+}
+
+.resultLog {
+    padding: 70px;
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+#resultLogText {
+    margin-right: auto;
+}
+
+.scoreAndReset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.scoreBoard {
+    display: flex;
+    gap: 20px;
+    text-align: center;
+}
+
+.playerScoreBoard,
+.opponentScoreBoard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 120px;
+    height: 150px;
+    border: 5px solid black;
+    background-color: rgb(144, 144, 144);
+}
+
+#playerScoreValue,
+#opponentScoreValue {
+    font-size: 90px;
+    font-family: 'Seven Segment', sans-serif;
+    font-weight: 400;
+}
+
+.scoreWin {
+    background-color: white;
+}
+
+#resetButton {
+    font-size: 24px;
+    height: 40px;
+    width: 80px;
+    background-color: transparent;
+    border: 2px solid black;
+}

@@ -1,90 +1,104 @@
 // Create necessary variables
-let computerSelection;
-let playerSelection;
-let computerScore = 0;
+let opponentSelection;
+let opponentScore = 0;
 let playerScore = 0;
+let roundOver = false;
 
-// getComputerChoice randomly determines strings rock, paper, or scissor
-function getComputerChoice() {
-    let compChoiceInt = Math.floor(Math.random() * 3);
-    switch (compChoiceInt) {
+// getopponentChoice randomly determines strings rock, paper, or scissor
+function getOpponentChoice() {
+    let opponentChoiceInt = Math.floor(Math.random() * 3);
+    switch (opponentChoiceInt) {
         case 0:
-            computerSelection = 'rock';
-            break;
+            return 'rock';
         case 1:
-            computerSelection = 'scissor';
-            break;
+            return 'scissor';
         case 2:
-            computerSelection = 'paper';
-            break;
-    }
-    // console.log("getComputerChoice " + computerSelection);
-}
-
-// getPlayerChoice prompts user, equalizes output and checks for validity
-function getPlayerChoice() {
-    playerSelection = (prompt("Rock, paper, or scissor?")).toLowerCase();
-    if (playerSelection !== 'rock'
-        && playerSelection !== 'paper'
-        && playerSelection !== 'scissor') {
-            alert("Invalid input, please try again.");
-            getPlayerChoice();
+            return 'paper';
     }
 }
 
-// playRound compares computerSelection and playerSelection to determine winner
-function playRound() {
-    getComputerChoice();
-    getPlayerChoice();
-    if (computerSelection === playerSelection) {
-        console.log("Draw!");
-        playRound();
+// playRound compares opponentSelection and playerSelection to determine winner
+function playRound(playerSelection) {
+    opponentSelection = getOpponentChoice();
+    if (opponentSelection === playerSelection) {
+        resultLogText.innerText += "Draw!\n";
     } else if (playerSelection === 'rock') {
-        if (computerSelection === 'scissor') {
+        if (opponentSelection === 'scissor') {
             playerWin();            
         } else {
-            computerWin();
+            opponentWin();
         }
     } else if (playerSelection === 'scissor') {
-        if (computerSelection === 'paper') {
+        if (opponentSelection === 'paper') {
             playerWin();
         } else {
-            computerWin();
+            opponentWin();
         }
     } else {
-        if (computerSelection === 'rock') {
+        if (opponentSelection === 'rock') {
             playerWin();
         } else {
-            computerWin();
+            opponentWin();
         }
+    }
+    checkEndGame();
+}
+
+function checkEndGame() {
+    if (playerScore === 5) {
+        resultLogText.innerText += "You win!\n";
+        playerScoreBoard.classList.add("scoreWin");
+        roundOver = true;
+    } else if (opponentScore === 5) {
+        resultLogText.innerText += "Sorry, you lose.\n";
+        opponentScoreBoard.classList.add("scoreWin");
+        roundOver = true;
     }
 }
 
 // functions to increment and display current score
 function playerWin() {
     playerScore++;
-    console.log("Computer picked " + computerSelection + ", Player wins! Current " + score());
+    resultLogText.innerText += ("Opponent picked " + 
+        opponentSelection + 
+        ", player wins!\n");
+    playerScoreValue.innerText = playerScore;
 }
 
-function computerWin() {
-    computerScore++;
-    console.log("Computer picked " + computerSelection + ", Computer wins! Current " + score());
+function opponentWin() {
+    opponentScore++;
+    resultLogText.innerText += ("Opponent picked " + 
+        opponentSelection + 
+        ", opponent wins.\n");
+    opponentScoreValue.innerText = opponentScore;
 }
 
 function score() {
-    return ("score is " + playerScore + " to " + computerScore + ".");
+    return ("score is " + playerScore + " to " + opponentScore + ".");
 }
 
-// game runs a sequence of 5 rounds
-function game() {
-    for (let i = 0; i < 5; i++) {
-        playRound();
-    }
-    if (playerScore > computerScore) {
-        console.log("You win! Final " + score());
-    } else {
-        console.log("Sorry, you lose. Final " + score());
-    }
-}
+// button click runs playRound with player choice
+const buttons = document.querySelectorAll('.selectButton');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (roundOver === false) playRound(button.id);
+    })
+})
 
-game();
+const resetButton = document.querySelector('#resetButton');
+resetButton.addEventListener('click', () => {
+    opponentScore = 0;
+    playerScore = 0;
+    resultLogText.innerText = "";
+    playerScoreValue.innerText = 0;
+    opponentScoreValue.innerText = 0;
+    roundOver = false;
+    playerScoreBoard.classList.remove("scoreWin");
+    opponentScoreBoard.classList.remove("scoreWin");
+})
+
+const resultLogText = document.querySelector('#resultLogText');
+const playerScoreValue = document.querySelector('#playerScoreValue');
+const opponentScoreValue = document.querySelector('#opponentScoreValue');
+const playerScoreBoard = document.querySelector('.playerScoreBoard');
+const opponentScoreBoard = document.querySelector('.opponentScoreBoard');
